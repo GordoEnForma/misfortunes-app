@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Route, Routes } from 'react-router-dom';
 import { Note as NoteInterface } from './interfaces/NoteInterface';
 import { AuthPage } from './pages/AuthPage';
 import { HomePage } from './pages/HomePage';
@@ -9,8 +10,12 @@ export const App = () => {
   return (
 
     <div className='container'>
-      {/* <AuthPage /> */}
-      <HomePage notes={notes} setNotes={setNotes}/>
+      <Routes>
+        <Route path="/login" element={<AuthPage />} />
+        <Route path="/*" element={<HomePage notes={notes} setNotes={setNotes}/>} />
+      </Routes>
+      {/*  */}
+      
     </div>
   )
 
