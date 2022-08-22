@@ -39,7 +39,7 @@ export const NoteForm = ({ setNotes }: NoteFormProps) => {
                 value={journalContent}
             >
             </textarea>
-            <button type='submit'>Submit</button>
+            <button type='submit'>Submitea tu Desgracias</button>
         </form>
     )
 }
