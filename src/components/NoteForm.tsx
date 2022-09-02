@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { Note } from "../interfaces/NoteInterface";
-
 interface NoteFormProps {
     setNotes: React.Dispatch<React.SetStateAction<Note[]>>
 }
 
 export const NoteForm = ({ setNotes }: NoteFormProps) => {
 
-    
+
     const [journalContent, setJournalContent] = useState('')
     const [journalTitle, setJournalTitle] = useState('')
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const date = new Date()
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setNotes((notes) => [{
             date: new Date(),
@@ -21,6 +21,18 @@ export const NoteForm = ({ setNotes }: NoteFormProps) => {
         );
         setJournalTitle('');
         setJournalContent('');
+        await fetch('http://localhost:3000/note',{
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({ 
+                content: journalContent,
+                title: journalTitle,    
+                date : new Date(),
+            })  
+        }).catch(e =>console.log(e) );
     }
     return (
         <form onSubmit={handleSubmit} className='form-container'>
